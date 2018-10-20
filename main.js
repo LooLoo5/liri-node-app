@@ -1,8 +1,21 @@
 require("dotenv").config();
 
 
+logtxt();
+
+switch (process.argv) {
+    case 'bands-in-town': bandsInTown();
+    break;
+    case 'spotify-this-song': spotifyThis(require);
+    break;
+    case 'movie-this': movieThis(require);
+    break;
+    default: return console.log('try again with different input');
+}
+
+
 //bands in town
-const request = require('request');
+const request = require("request");
 request("https://rest.bandsintown.com/artists/coldplay/events?app_id=codingbootcamp", function (error, response, body) {
     if (error) throw error;
      console.log(body);
@@ -28,6 +41,7 @@ spotify.search({
 });
 
 //OMBD
+const movies = require("movies");
 request("http://www.omdbapi.com/?t=inception&apikey=c77c646c", function (error, response, body) {
     if (error) throw error;
      console.log(JSON.parse(body));
